@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>
+    Appointments ({{count?.booked}})
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [formControl]="date" [matDatepicker]="picker1" (dateChange)="get()">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1 disabled=false></mat-datepicker>
+    </mat-form-field>
+    <button mat-mini-fab aria-label="Refresh Appointments" (click)="get()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    <div class="z-appointments">
+      <div class="z-appointment" *ngFor="let appointment of appointments |sortRanges;last as last">
+        <span>{{appointment?.bookedBy?.by}}</span> - {{appointment?.startAt|time}} - {{appointment?.endAt|time}}
+        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

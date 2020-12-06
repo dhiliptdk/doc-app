@@ -1,0 +1,47 @@
+<title mat-dialog-title> Add Time Slot</title>
+<form [formGroup]="timeslotFormGroup" (submit)="addTimeSlot(timeslotFormGroup)">
+  <mat-dialog-content>
+    <div class="z-form">
+      <mat-form-field class="z-form-field">
+        <mat-label>Shift</mat-label>
+        <mat-select formControlName="shift">
+          <mat-option *ngFor="let _shift of shifts" [value]="_shift.value">
+            {{_shift.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="z-form-field">
+        <mat-label>Start Time</mat-label>
+        <input matInput type="time" formControlName="startAt" placeholder="Start Time" required>
+        <mat-error *ngIf="timeslotFormGroup.get('startAt').errors?.required">!Start time is required </mat-error>
+        <mat-error *ngIf="timeslotFormGroup.get('startAt').errors?.duration">!Duration should be 30 minutes </mat-error>
+        <mat-error *ngIf="timeslotFormGroup.get('startAt').errors?.max">!Start Time should be before End Time
+        </mat-error>
+        <mat-error *ngIf="timeslotFormGroup.get('startAt').errors?.limit">
+          !should be between
+          {{limit[timeslotFormGroup.get('shift').value].start|time}} -
+          {{limit[timeslotFormGroup.get('shift').value].end|time}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="z-form-field">
+        <mat-label>End Time</mat-label>
+        <input matInput type="time" formControlName="endAt" placeholder="End Time" required>
+        <mat-error *ngIf="timeslotFormGroup.get('endAt').errors?.required">End time is required </mat-error>
+        <mat-error *ngIf="timeslotFormGroup.get('endAt').errors?.duration">Duration should be 30 minutes </mat-error>
+        <mat-error *ngIf="timeslotFormGroup.get('endAt').errors?.min">!End Time should be after Start Time</mat-error>
+        <mat-error *ngIf="timeslotFormGroup.get('endAt').errors?.limit">
+          !should be between
+          {{limit[timeslotFormGroup.get('shift').value].start|time}} -
+          {{limit[timeslotFormGroup.get('shift').value].end|time}}
+        </mat-error>
+      </mat-form-field>
+      <div class="z-message-error" color="warn" *ngIf="message">
+        {{message}}
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" [disabled]="timeslotFormGroup.invalid">Add</button>
+    <button type="reset" mat-stroked-button color="warn" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</form>

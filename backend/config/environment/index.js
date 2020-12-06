@@ -14,10 +14,10 @@ module.exports = {
     ip: process.env.IP || '0.0.0.0',
 
     // cors whitelist urls 
-    whitelistURLs: ["http:localhost:4200"],
+    whitelistURLs: ["http://localhost:4200"],
 
     mongo: {
-        uri: 'mongodb+srv://dbuser:VGvjwZgdolhLH9F2@code-ai-cluster-jhecs.mongodb.net/test?retryWrites=true&w=majority',
+        uri: 'mongodb+srv://dbuser:VGvjwZgdolhLH9F2@code-ai-cluster-jhecs.mongodb.net/doctor_db?retryWrites=true&w=majority',
         options: {
             useNewUrlParser: true,
             db: {

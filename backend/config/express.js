@@ -10,7 +10,7 @@ var cors = require('cors');
 module.exports = function (app) {
 
     app.use(compression());
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(methodOverride());
     app.use(cors({

@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-card-title>
+    Time Slots
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field color="accent" appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [formControl]="date" [matDatepicker]="picker1" (dateChange)="dateChange( $event)">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1 disabled=false></mat-datepicker>
+    </mat-form-field>
+    <div class="shifts">
+      <div class="shift morning-shift">
+        <ng-container *ngTemplateOutlet="timeslotTemplate;context:{shift:'morning'}">
+        </ng-container>
+      </div>
+      <div class="shift evening-shift">
+        <ng-container *ngTemplateOutlet="timeslotTemplate;context:{shift:'evening'}">
+        </ng-container>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<ng-template #timeslotTemplate let-shift="shift">
+  <button class="add-btn" mat-mini-fab aria-label="add" (click)="openAddSlotDialog(shift)">
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-card>
+    <mat-card-title>
+      {{displayName[shift]}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{displayTiming[shift].start|time}} - {{displayTiming[shift].end|time}}
+    </mat-card-subtitle>
+    <mat-card-content class="slots">
+      <div class="slot" *ngFor='let timeslot of timeSlots[shift]|sortRanges'>
+        {{timeslot.startAt}} - {{timeslot.endAt}}
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

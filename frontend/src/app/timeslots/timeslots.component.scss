@@ -1,0 +1,26 @@
+.shifts {
+  height: calc(100% - 10px);
+
+  .shift {
+    position: relative;
+
+    .add-btn {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+    }
+
+    .slots {
+      display: flex;
+
+      .slot {
+        border: 1px #ffffff solid;
+        padding: 5px;
+        margin: 3px;
+
+      }
+
+    }
+  }
+
+}
